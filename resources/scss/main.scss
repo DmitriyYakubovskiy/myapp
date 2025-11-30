@@ -1,0 +1,111 @@
+@use "sass:color";
+@use "sass:list";
+@use "bootstrap/scss/bootstrap" with (
+  $primary: #8B4513,
+  $secondary: #556B2F,
+  $success: #228B22,
+  $danger: #8B0000,
+  $warning: #FFD700,
+  $info: #20B2AA,
+  $light: #F5F5DC,
+  $dark: #2F4F4F,
+  
+  $grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+    wide: 1600px
+  ),
+  
+  $container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px,
+    wide: 1500px
+  )
+);
+
+$card-color-base: #b5d6f9; 
+$color-step: 5%;
+
+$colors: ();
+@for $i from 1 through 5 {
+  $step: $i * $color-step;
+  $colors: list.append($colors, color.scale($card-color-base, $lightness: -$step));
+}
+
+$colors-count: list.length($colors);
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  position: relative;
+
+  @mixin card-style($bg, $border) {
+    background-color: $bg;
+    border-color: $border;
+  }
+  
+  @for $i from 1 through $colors-count {
+    .col-12:nth-of-type(#{$colors-count}n + #{$i}) & { 
+      $bg: list.nth($colors, $i);
+      $border: color.scale($bg, $lightness: -25%);
+      @include card-style($bg, $border);
+    }
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.label_block {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  
+  label {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  &.predator label {
+    background-color: #8B0000;
+    color: white;
+  }
+  
+  &.herbivore label {
+    background-color: #228B22;
+    color: white;
+  }
+}
+
+.site-header {
+  background: linear-gradient(135deg, #8B4513, #2F4F4F);
+  color: white;
+}
+
+.footer {
+  background-color: #2F4F4F;
+  color: white;
+}
+
+@include bootstrap.media-breakpoint-up(wide) {
+  .container {
+    max-width: 1500px;
+  }
+  
+  .col-wide-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
+}
