@@ -19,10 +19,6 @@
 
     @include('partials.footer')
 
-    @include('partials.dino-modal')
-    @include('partials.toast')
-
     <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ mix('js/modal-navigation.js') }}"></script>
 </body>
 </html>

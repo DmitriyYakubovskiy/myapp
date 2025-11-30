@@ -7,7 +7,6 @@
     <h1 class="mb-4">Динозавры</h1>
 
     <div class="row g-4">
-
         @foreach ($dinosaurs as $index => $dino)
             <div class="col-12 col-sm-6 col-lg-4 col-xxl-3 col-wide-2">
                 <div class="card h-100 dino-card"
@@ -27,12 +26,9 @@
                         <h5 class="card-title">{{ $dino->title }}</h5>
                         <p class="card-text flex-grow-1">{{ $dino->description }}</p>
 
-                        <button class="btn btn-primary mt-auto"
-                                data-bs-toggle="modal"
-                                data-bs-target="#dinoModal"
-                                data-index="{{ $index }}">
+                        <a href="{{ route('dinosaurs.show', $dino->id) }}" class="btn btn-primary mt-auto">
                             Подробнее
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
